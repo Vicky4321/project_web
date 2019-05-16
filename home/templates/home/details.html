@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+<div class="container" style="background: darkgray;fill: darkgray;margin: 10px" >
+    <div class="row">
+        <!--Left album info-->
+        <div class="col-sm-3">
+            <div class="panel panel-info">
+                <div class="panel-body" style="background-color: darkgray">
+                    <img src="{{ album.cover.url }}" class="img img-thumbnail img-responsive" alt="">
+                    <div class="caption ">
+                        <h5>{{ album.name }}</h5>
+                        <h6>{{ album.genre }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end album info-->
+        <!--right song info-->
+        <div class="col-sm-9">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="">songs</a> </li>
+                <li><a href="{% url 'home:add_song' album.id %}">add song</a> </li>
+            </ul>
+            <div class="panel panel-default" style="margin: 10px;background: darkgray" >
+                <div class="panel-body">
+                    <h4 class="text-danger" >All Songs</h4>
+                    <table class="table">
+                        <tr>
+                            <thead>
+                            <th>#</th>
+                            <th>Song Name</th>
+                            <th>Audio</th>
+                            <th>Favorite</th>
+                            <th>Action</th>
+                            </thead>
+                        </tr>
+                        <tbody style="background: darkgray">
+                            {% if album.song_set %}
+                                {% for s in album.song_set.all %}
+                                    <tr>
+                                    <td>{{ album.id }}</td>
+                                    <td>{{ s.name }}</td>
+                                    <td><a href="{{ s.audio.url }}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-play-circle"></i>
+                                    </a>
+                                    </td>
+                                    <td>
+                                    <a href="" class="btn btn-info btn-sm">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    </td>
+                                    <td>
+                                        <a href="" class="btn btn-success btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'home:delete' album.id %}" class="btn btn-danger btn-sm"
+                                           onclick='return confirm("Are you sure")'>
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--end of song info-->
+    </div>
+</div>
